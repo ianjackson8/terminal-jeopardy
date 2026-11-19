@@ -77,26 +77,43 @@ class FinalClue:
         return [self.answer, *self.accept]
 
 
+def clue_tier(raw_clue: dict, index: int) -> int:
+    """A clue's difficulty tier (1-5). Untiered clues use their position (legacy 5-clue categories)."""
+    return int(raw_clue.get("tier", index + 1))
+
+
+def is_playable(raw: dict) -> bool:
+    """A category needs at least one clue for every tier 1-5."""
+    tiers = {clue_tier(c, i) for i, c in enumerate(raw["clues"])}
+    return tiers >= {1, 2, 3, 4, 5}
+
+
 def load_bank(path: Path = DATA_FILE) -> tuple[list[dict], list[dict]]:
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
-    cats = [c for c in data["categories"] if len(c["clues"]) == 5]
+    cats = [c for c in data["categories"] if is_playable(c)]
     return cats, data["finals"]
 
 
-def make_category(raw: dict, round_no: int | None = None) -> Category:
+def _make_clue(name: str, c: dict, tier: int, values: list[int]) -> Clue:
+    return Clue(category=name, text=c["clue"], answer=c["answer"], accept=list(c.get("accept", [])),
+                tier=tier, value=values[tier - 1])
+
+
+def make_category(raw: dict, round_no: int | None = None, rng: random.Random | None = None) -> Category:
+    """Build a category.
+
+    With `rng`, deal a board column: one random clue per tier, easiest first.
+    Without it (practice), return every clue in the category, ordered by tier.
+    """
     values = ROUND_VALUES[round_no] if round_no else [0] * 5
-    clues = [
-        Clue(
-            category=raw["name"],
-            text=c["clue"],
-            answer=c["answer"],
-            accept=list(c.get("accept", [])),
-            tier=i + 1,
-            value=values[i],
-        )
-        for i, c in enumerate(raw["clues"])
-    ]
+    by_tier: dict[int, list[dict]] = {}
+    for i, c in enumerate(raw["clues"]):
+        by_tier.setdefault(clue_tier(c, i), []).append(c)
+    if rng is not None:
+        clues = [_make_clue(raw["name"], rng.choice(by_tier[t]), t, values) for t in range(1, 6)]
+    else:
+        clues = [_make_clue(raw["name"], c, t, values) for t in sorted(by_tier) for c in by_tier[t]]
     return Category(raw["name"], clues)
 
 
@@ -122,8 +139,8 @@ def build_game(rng: random.Random | None = None) -> tuple[Board, Board, FinalClu
     if len(cats) < 12:
         raise ValueError("Need at least 12 complete categories in the clue bank")
     chosen = rng.sample(cats, 12)
-    r1 = Board(1, [make_category(c, 1) for c in chosen[:6]])
-    r2 = Board(2, [make_category(c, 2) for c in chosen[6:]])
+    r1 = Board(1, [make_category(c, 1, rng) for c in chosen[:6]])
+    r2 = Board(2, [make_category(c, 2, rng) for c in chosen[6:]])
     _place_daily_doubles(r1, 1, rng)
     _place_daily_doubles(r2, 2, rng)
     f = rng.choice(finals)

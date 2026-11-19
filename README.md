@@ -4,7 +4,7 @@
   <img alt="Python 3.10+" src="https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white">
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-none-brightgreen">
   <img alt="Platform" src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey">
-  <img alt="Clues" src="https://img.shields.io/badge/clues-240%20%2B%2025%20finals-gold">
+  <img alt="Clues" src="https://img.shields.io/badge/clues-600%20%2B%2040%20finals-gold">
 </p>
 
 **A full quiz show in your terminal.** Buzz in against two AI opponents, hunt for Daily Doubles, bet it all in the Final Round, or sharpen up in practice mode.
@@ -103,14 +103,15 @@ You can turn on a 15-second timer in the practice menu. After each session you g
 
 ## 🗂️ Adding your own clues
 
-The clues live in [`jeopardy/data/clues.json`](jeopardy/data/clues.json). Each category needs exactly **5 clues, ordered easiest to hardest**. The game assigns dollar values from that order.
+The clues live in [`jeopardy/data/clues.json`](jeopardy/data/clues.json). Each clue has a difficulty `tier` from **1 (easiest) to 5 (hardest)**, which sets its dollar value. A category needs at least one clue per tier and can have as many as you like. Each time a category comes up, the game deals one random clue from each tier, so deeper categories play differently every game.
 
 ```json
 {
   "name": "THE SOLAR SYSTEM",
   "clues": [
-    { "clue": "The largest planet in our solar system", "answer": "Jupiter" },
-    { "clue": "In 2006 the IAU reclassified this body as a dwarf planet", "answer": "Pluto" }
+    { "tier": 1, "clue": "Iron oxide gives this planet its nickname, the Red Planet", "answer": "Mars" },
+    { "tier": 1, "clue": "The star at the center of our solar system", "answer": "The Sun", "accept": ["sun"] },
+    { "tier": 2, "clue": "The largest planet in our solar system", "answer": "Jupiter" }
   ]
 }
 ```
