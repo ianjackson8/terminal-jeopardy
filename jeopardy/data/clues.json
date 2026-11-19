@@ -1,0 +1,1788 @@
+{
+  "categories": [
+    {
+      "name": "WORLD CAPITALS",
+      "clues": [
+        {
+          "clue": "This city on the Seine is home to the Louvre",
+          "answer": "Paris"
+        },
+        {
+          "clue": "Canberra, not Sydney, is the capital of this country",
+          "answer": "Australia"
+        },
+        {
+          "clue": "This planned South American capital replaced Rio de Janeiro in 1960",
+          "answer": "Brasília",
+          "accept": [
+            "brasilia"
+          ]
+        },
+        {
+          "clue": "Kathmandu is the capital of this Himalayan nation",
+          "answer": "Nepal"
+        },
+        {
+          "clue": "Kazakhstan's capital was renamed Nur-Sultan in 2019, then went back to this name in 2022",
+          "answer": "Astana"
+        }
+      ]
+    },
+    {
+      "name": "THE SOLAR SYSTEM",
+      "clues": [
+        {
+          "clue": "Iron oxide on its surface gives this planet its nickname, the Red Planet",
+          "answer": "Mars"
+        },
+        {
+          "clue": "The largest planet in our solar system",
+          "answer": "Jupiter"
+        },
+        {
+          "clue": "Titan, a moon with a thick atmosphere, orbits this ringed planet",
+          "answer": "Saturn"
+        },
+        {
+          "clue": "In 2006 the IAU reclassified this body as a dwarf planet",
+          "answer": "Pluto"
+        },
+        {
+          "clue": "With an axial tilt of about 98 degrees, this planet essentially rolls around the Sun on its side",
+          "answer": "Uranus"
+        }
+      ]
+    },
+    {
+      "name": "SHAKESPEARE",
+      "clues": [
+        {
+          "clue": "This Danish prince asks, \"To be, or not to be\"",
+          "answer": "Hamlet"
+        },
+        {
+          "clue": "This tragedy features the \"star-cross'd lovers\" of Verona",
+          "answer": "Romeo and Juliet",
+          "accept": [
+            "romeo & juliet"
+          ]
+        },
+        {
+          "clue": "Superstitious actors call this play \"the Scottish play\"",
+          "answer": "Macbeth"
+        },
+        {
+          "clue": "Prospero and his daughter Miranda live on an enchanted island in this play",
+          "answer": "The Tempest"
+        },
+        {
+          "clue": "In this play, Shylock demands a pound of flesh",
+          "answer": "The Merchant of Venice",
+          "accept": [
+            "merchant of venice"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CHEMICAL ELEMENTS",
+      "clues": [
+        {
+          "clue": "This precious metal has the chemical symbol Au",
+          "answer": "Gold"
+        },
+        {
+          "clue": "The lightest element on the periodic table",
+          "answer": "Hydrogen"
+        },
+        {
+          "clue": "This metal's symbol, Fe, comes from the Latin \"ferrum\"",
+          "answer": "Iron"
+        },
+        {
+          "clue": "This noble gas glows red-orange in classic advertising signs",
+          "answer": "Neon"
+        },
+        {
+          "clue": "Marie Curie named this element, symbol Po, after her homeland",
+          "answer": "Polonium"
+        }
+      ]
+    },
+    {
+      "name": "U.S. PRESIDENTS",
+      "clues": [
+        {
+          "clue": "He was the first President of the United States",
+          "answer": "George Washington",
+          "accept": [
+            "washington"
+          ]
+        },
+        {
+          "clue": "He delivered the Gettysburg Address in 1863",
+          "answer": "Abraham Lincoln",
+          "accept": [
+            "lincoln",
+            "abe lincoln"
+          ]
+        },
+        {
+          "clue": "The only president elected to more than two terms",
+          "answer": "Franklin D. Roosevelt",
+          "accept": [
+            "fdr",
+            "franklin roosevelt",
+            "franklin delano roosevelt",
+            "roosevelt"
+          ]
+        },
+        {
+          "clue": "In 1974 he became the only president to resign from office",
+          "answer": "Richard Nixon",
+          "accept": [
+            "nixon"
+          ]
+        },
+        {
+          "clue": "The first president to serve two non-consecutive terms, he was both the 22nd and 24th president",
+          "answer": "Grover Cleveland",
+          "accept": [
+            "cleveland"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ANIMAL KINGDOM",
+      "clues": [
+        {
+          "clue": "Reaching about 70 mph in short bursts, it's the fastest land animal",
+          "answer": "Cheetah"
+        },
+        {
+          "clue": "The only mammal capable of true sustained flight",
+          "answer": "Bat"
+        },
+        {
+          "clue": "A group of lions is called this",
+          "answer": "Pride"
+        },
+        {
+          "clue": "This eight-armed sea creature has three hearts and blue blood",
+          "answer": "Octopus"
+        },
+        {
+          "clue": "The axolotl, famous for regrowing limbs, is a type of this amphibian",
+          "answer": "Salamander"
+        }
+      ]
+    },
+    {
+      "name": "WORLD HISTORY",
+      "clues": [
+        {
+          "clue": "This \"unsinkable\" ocean liner sank on its maiden voyage in 1912",
+          "answer": "Titanic",
+          "accept": [
+            "rms titanic"
+          ]
+        },
+        {
+          "clue": "The Berlin Wall fell in this year",
+          "answer": "1989"
+        },
+        {
+          "clue": "King John agreed to this charter at Runnymede in 1215",
+          "answer": "Magna Carta"
+        },
+        {
+          "clue": "Born Octavian, he became Rome's first emperor",
+          "answer": "Augustus",
+          "accept": [
+            "caesar augustus",
+            "augustus caesar",
+            "octavian"
+          ]
+        },
+        {
+          "clue": "This 1648 set of treaties ended the Thirty Years' War",
+          "answer": "Peace of Westphalia",
+          "accept": [
+            "westphalia",
+            "treaty of westphalia"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AT THE MOVIES",
+      "clues": [
+        {
+          "clue": "In \"The Wizard of Oz\", Dorothy's little dog",
+          "answer": "Toto"
+        },
+        {
+          "clue": "This space saga begins \"A long time ago in a galaxy far, far away...\"",
+          "answer": "Star Wars"
+        },
+        {
+          "clue": "He directed both \"Jaws\" and \"E.T. the Extra-Terrestrial\"",
+          "answer": "Steven Spielberg",
+          "accept": [
+            "spielberg"
+          ]
+        },
+        {
+          "clue": "In this 1994 film, the title character says \"Life is like a box of chocolates\"",
+          "answer": "Forrest Gump"
+        },
+        {
+          "clue": "In 1992 this Disney film became the first animated feature nominated for Best Picture",
+          "answer": "Beauty and the Beast",
+          "accept": [
+            "beauty & the beast"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LITERATURE",
+      "clues": [
+        {
+          "clue": "She wrote \"Pride and Prejudice\"",
+          "answer": "Jane Austen",
+          "accept": [
+            "austen"
+          ]
+        },
+        {
+          "clue": "George Orwell's dystopian novel featuring Big Brother",
+          "answer": "1984",
+          "accept": [
+            "nineteen eighty four",
+            "nineteen eighty-four"
+          ]
+        },
+        {
+          "clue": "\"Call me Ishmael\" opens this Herman Melville novel",
+          "answer": "Moby-Dick",
+          "accept": [
+            "moby dick"
+          ]
+        },
+        {
+          "clue": "Tolstoy's heroine who throws herself under a train",
+          "answer": "Anna Karenina",
+          "accept": [
+            "karenina"
+          ]
+        },
+        {
+          "clue": "Gabriel García Márquez's novel chronicling the Buendía family of Macondo",
+          "answer": "One Hundred Years of Solitude",
+          "accept": [
+            "100 years of solitude"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "THE HUMAN BODY",
+      "clues": [
+        {
+          "clue": "By surface area and weight, it's the body's largest organ",
+          "answer": "Skin"
+        },
+        {
+          "clue": "This organ produces insulin",
+          "answer": "Pancreas"
+        },
+        {
+          "clue": "The typical number of bones in an adult human skeleton",
+          "answer": "206",
+          "accept": [
+            "two hundred six",
+            "two hundred and six"
+          ]
+        },
+        {
+          "clue": "Also called the stirrup, it's the smallest bone in the body",
+          "answer": "Stapes",
+          "accept": [
+            "stirrup"
+          ]
+        },
+        {
+          "clue": "These cone-shaped cells in the retina let you see in color",
+          "answer": "Cones",
+          "accept": [
+            "cone cells",
+            "cone"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MUSIC",
+      "clues": [
+        {
+          "clue": "John, Paul, George and Ringo",
+          "answer": "The Beatles",
+          "accept": [
+            "beatles"
+          ]
+        },
+        {
+          "clue": "The number of keys on a standard piano",
+          "answer": "88",
+          "accept": [
+            "eighty eight",
+            "eighty-eight"
+          ]
+        },
+        {
+          "clue": "He composed the \"Moonlight\" Sonata",
+          "answer": "Ludwig van Beethoven",
+          "accept": [
+            "beethoven"
+          ]
+        },
+        {
+          "clue": "This Italian musical term means gradually getting louder",
+          "answer": "Crescendo"
+        },
+        {
+          "clue": "The largest and lowest-pitched bowed string instrument in the modern orchestra",
+          "answer": "Double bass",
+          "accept": [
+            "bass",
+            "contrabass",
+            "upright bass",
+            "string bass"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SPORTS",
+      "clues": [
+        {
+          "clue": "Love, deuce and advantage are terms in this racket sport",
+          "answer": "Tennis"
+        },
+        {
+          "clue": "The number of players each side has on the field in soccer",
+          "answer": "11",
+          "accept": [
+            "eleven"
+          ]
+        },
+        {
+          "clue": "In golf, a score of one under par on a hole",
+          "answer": "Birdie"
+        },
+        {
+          "clue": "The first modern Olympic Games were held in 1896 in this country",
+          "answer": "Greece"
+        },
+        {
+          "clue": "In bowling, three strikes in a row is called this bird",
+          "answer": "Turkey"
+        }
+      ]
+    },
+    {
+      "name": "GEOGRAPHY",
+      "clues": [
+        {
+          "clue": "The largest and deepest of Earth's oceans",
+          "answer": "Pacific Ocean",
+          "accept": [
+            "pacific"
+          ]
+        },
+        {
+          "clue": "This river flows north through Egypt to the Mediterranean",
+          "answer": "Nile",
+          "accept": [
+            "nile river"
+          ]
+        },
+        {
+          "clue": "The largest hot desert in the world",
+          "answer": "Sahara",
+          "accept": [
+            "sahara desert"
+          ]
+        },
+        {
+          "clue": "At about 0.17 square miles, it's the world's smallest country",
+          "answer": "Vatican City",
+          "accept": [
+            "vatican",
+            "holy see"
+          ]
+        },
+        {
+          "clue": "This country contains more lakes than the rest of the world combined",
+          "answer": "Canada"
+        }
+      ]
+    },
+    {
+      "name": "FOOD & DRINK",
+      "clues": [
+        {
+          "clue": "This fruit is the main ingredient in guacamole",
+          "answer": "Avocado"
+        },
+        {
+          "clue": "This Japanese dish is built on vinegared rice",
+          "answer": "Sushi"
+        },
+        {
+          "clue": "This baked Italian dish layers wide pasta sheets with sauce and cheese",
+          "answer": "Lasagna",
+          "accept": [
+            "lasagne"
+          ]
+        },
+        {
+          "clue": "Harvested from crocus flowers, it's the world's most expensive spice by weight",
+          "answer": "Saffron"
+        },
+        {
+          "clue": "This French mother sauce is an emulsion of butter, egg yolks and lemon juice",
+          "answer": "Hollandaise"
+        }
+      ]
+    },
+    {
+      "name": "MYTHOLOGY",
+      "clues": [
+        {
+          "clue": "King of the Greek gods, he hurled thunderbolts from Mount Olympus",
+          "answer": "Zeus"
+        },
+        {
+          "clue": "This Norse god of thunder wields the hammer Mjölnir",
+          "answer": "Thor"
+        },
+        {
+          "clue": "This Greek hero of the Trojan War was vulnerable only at his heel",
+          "answer": "Achilles"
+        },
+        {
+          "clue": "The Roman counterpart of the Greek messenger god Hermes",
+          "answer": "Mercury"
+        },
+        {
+          "clue": "Husband of Isis, this Egyptian god ruled the underworld",
+          "answer": "Osiris"
+        }
+      ]
+    },
+    {
+      "name": "INVENTIONS",
+      "clues": [
+        {
+          "clue": "He received the 1876 patent for the telephone",
+          "answer": "Alexander Graham Bell",
+          "accept": [
+            "bell",
+            "graham bell"
+          ]
+        },
+        {
+          "clue": "Johannes Gutenberg's movable-type machine of the 1400s",
+          "answer": "Printing press",
+          "accept": [
+            "press"
+          ]
+        },
+        {
+          "clue": "Tim Berners-Lee proposed this information system in 1989",
+          "answer": "World Wide Web",
+          "accept": [
+            "web",
+            "www",
+            "the web"
+          ]
+        },
+        {
+          "clue": "The Wright brothers made their first powered flight near this North Carolina town in 1903",
+          "answer": "Kitty Hawk",
+          "accept": [
+            "kill devil hills"
+          ]
+        },
+        {
+          "clue": "In 1955 his polio vaccine was declared safe and effective",
+          "answer": "Jonas Salk",
+          "accept": [
+            "salk"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WORDPLAY",
+      "clues": [
+        {
+          "clue": "\"Bonjour\" and \"merci\" are words in this language",
+          "answer": "French"
+        },
+        {
+          "clue": "A word like \"racecar\" that reads the same forwards and backwards",
+          "answer": "Palindrome"
+        },
+        {
+          "clue": "The traditional Latin plural of \"cactus\"",
+          "answer": "Cacti"
+        },
+        {
+          "clue": "A word like \"NASA\" or \"scuba\", formed from initial letters and pronounced as a word",
+          "answer": "Acronym"
+        },
+        {
+          "clue": "The ampersand evolved from a scribal ligature of the letters in this Latin word meaning \"and\"",
+          "answer": "Et"
+        }
+      ]
+    },
+    {
+      "name": "ART",
+      "clues": [
+        {
+          "clue": "He painted the Mona Lisa",
+          "answer": "Leonardo da Vinci",
+          "accept": [
+            "da vinci",
+            "leonardo"
+          ]
+        },
+        {
+          "clue": "This Dutch post-impressionist painted \"The Starry Night\"",
+          "answer": "Vincent van Gogh",
+          "accept": [
+            "van gogh"
+          ]
+        },
+        {
+          "clue": "He painted the ceiling of the Sistine Chapel",
+          "answer": "Michelangelo",
+          "accept": [
+            "michelangelo buonarroti"
+          ]
+        },
+        {
+          "clue": "This Spanish surrealist painted the melting clocks of \"The Persistence of Memory\"",
+          "answer": "Salvador Dalí",
+          "accept": [
+            "dali",
+            "salvador dali"
+          ]
+        },
+        {
+          "clue": "This Japanese artist created the woodblock print \"The Great Wave off Kanagawa\"",
+          "answer": "Katsushika Hokusai",
+          "accept": [
+            "hokusai"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "COMPUTING",
+      "clues": [
+        {
+          "clue": "He co-founded Microsoft with Paul Allen in 1975",
+          "answer": "Bill Gates",
+          "accept": [
+            "gates"
+          ]
+        },
+        {
+          "clue": "A group of 8 bits",
+          "answer": "Byte"
+        },
+        {
+          "clue": "In a computer, CPU stands for this",
+          "answer": "Central processing unit"
+        },
+        {
+          "clue": "This programming language was named after a British comedy troupe, not a snake",
+          "answer": "Python"
+        },
+        {
+          "clue": "Her 1843 notes on Babbage's Analytical Engine include what's considered the first computer program",
+          "answer": "Ada Lovelace",
+          "accept": [
+            "lovelace",
+            "ada"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "U.S. STATES",
+      "clues": [
+        {
+          "clue": "The Aloha State",
+          "answer": "Hawaii"
+        },
+        {
+          "clue": "The largest state by area",
+          "answer": "Alaska"
+        },
+        {
+          "clue": "The smallest state by area",
+          "answer": "Rhode Island"
+        },
+        {
+          "clue": "Mount Rushmore is carved into the Black Hills of this state",
+          "answer": "South Dakota"
+        },
+        {
+          "clue": "The only state whose name has just one syllable",
+          "answer": "Maine"
+        }
+      ]
+    },
+    {
+      "name": "SCIENCE",
+      "clues": [
+        {
+          "clue": "H2O is better known as this",
+          "answer": "Water"
+        },
+        {
+          "clue": "This force keeps your feet on the ground and the Moon in orbit",
+          "answer": "Gravity"
+        },
+        {
+          "clue": "He published \"On the Origin of Species\" in 1859",
+          "answer": "Charles Darwin",
+          "accept": [
+            "darwin"
+          ]
+        },
+        {
+          "clue": "Often called the powerhouse of the cell",
+          "answer": "Mitochondria",
+          "accept": [
+            "mitochondrion"
+          ]
+        },
+        {
+          "clue": "The SI unit of electrical resistance",
+          "answer": "Ohm",
+          "accept": [
+            "ohms"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LANDMARKS",
+      "clues": [
+        {
+          "clue": "Strictly speaking, this nickname belongs to the great bell in London's Elizabeth Tower",
+          "answer": "Big Ben"
+        },
+        {
+          "clue": "The Statue of Liberty was a gift to the U.S. from this country",
+          "answer": "France"
+        },
+        {
+          "clue": "The only one of the Seven Wonders of the Ancient World still largely intact",
+          "answer": "Great Pyramid of Giza",
+          "accept": [
+            "great pyramid",
+            "pyramid of giza",
+            "pyramids of giza",
+            "pyramids",
+            "giza pyramid"
+          ]
+        },
+        {
+          "clue": "This 15th-century Inca citadel sits high in Peru's Andes",
+          "answer": "Machu Picchu"
+        },
+        {
+          "clue": "This vast Cambodian temple complex appears on the country's flag",
+          "answer": "Angkor Wat",
+          "accept": [
+            "angkor"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "TV LAND",
+      "clues": [
+        {
+          "clue": "On \"Sesame Street\", this grouch lives in a trash can",
+          "answer": "Oscar",
+          "accept": [
+            "oscar the grouch"
+          ]
+        },
+        {
+          "clue": "The Simpsons live in this town with a famously ambiguous state",
+          "answer": "Springfield"
+        },
+        {
+          "clue": "The coffee house where the \"Friends\" gang hangs out",
+          "answer": "Central Perk"
+        },
+        {
+          "clue": "On \"Breaking Bad\", this chemistry teacher goes by \"Heisenberg\"",
+          "answer": "Walter White",
+          "accept": [
+            "walt",
+            "walter",
+            "heisenberg"
+          ]
+        },
+        {
+          "clue": "The continent where most of \"Game of Thrones\" takes place",
+          "answer": "Westeros"
+        }
+      ]
+    },
+    {
+      "name": "BY THE NUMBERS",
+      "clues": [
+        {
+          "clue": "The number of sides on a hexagon",
+          "answer": "6",
+          "accept": [
+            "six"
+          ]
+        },
+        {
+          "clue": "The number of degrees in a right angle",
+          "answer": "90",
+          "accept": [
+            "ninety"
+          ]
+        },
+        {
+          "clue": "The value of the Roman numeral C",
+          "answer": "100",
+          "accept": [
+            "one hundred",
+            "a hundred",
+            "hundred"
+          ]
+        },
+        {
+          "clue": "The square root of 144",
+          "answer": "12",
+          "accept": [
+            "twelve"
+          ]
+        },
+        {
+          "clue": "The smallest prime number greater than 50",
+          "answer": "53",
+          "accept": [
+            "fifty three",
+            "fifty-three"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "OCEANS & SEAS",
+      "clues": [
+        {
+          "clue": "The Strait of Gibraltar links the Atlantic Ocean to this sea",
+          "answer": "Mediterranean Sea",
+          "accept": [
+            "mediterranean"
+          ]
+        },
+        {
+          "clue": "Bordering Israel and Jordan, this salty lake lets swimmers float with ease",
+          "answer": "Dead Sea"
+        },
+        {
+          "clue": "Bordered by Russia and Iran, this \"sea\" is actually the world's largest lake",
+          "answer": "Caspian Sea",
+          "accept": [
+            "caspian"
+          ]
+        },
+        {
+          "clue": "Named for its floating seaweed, it's the only sea with no land coastline",
+          "answer": "Sargasso Sea",
+          "accept": [
+            "sargasso"
+          ]
+        },
+        {
+          "clue": "The deepest known point in Earth's oceans, at the southern end of the Mariana Trench",
+          "answer": "Challenger Deep"
+        }
+      ]
+    },
+    {
+      "name": "DINOSAURS",
+      "clues": [
+        {
+          "clue": "Its name means \"tyrant lizard king\"",
+          "answer": "Tyrannosaurus rex",
+          "accept": [
+            "t rex",
+            "tyrannosaurus",
+            "trex"
+          ]
+        },
+        {
+          "clue": "This plant-eater had three horns on its face and a large bony frill",
+          "answer": "Triceratops"
+        },
+        {
+          "clue": "This dinosaur had bony plates along its back and a spiked tail",
+          "answer": "Stegosaurus"
+        },
+        {
+          "clue": "Non-avian dinosaurs died out 66 million years ago at the end of this geologic period",
+          "answer": "Cretaceous",
+          "accept": [
+            "cretaceous period"
+          ]
+        },
+        {
+          "clue": "The impact crater tied to the dinosaurs' extinction is named for this town on Mexico's Yucatán Peninsula",
+          "answer": "Chicxulub"
+        }
+      ]
+    },
+    {
+      "name": "CURRENCIES",
+      "clues": [
+        {
+          "clue": "Banknotes in this currency have been used in France, Germany and Italy since 2002",
+          "answer": "Euro"
+        },
+        {
+          "clue": "The currency of Japan",
+          "answer": "Yen",
+          "accept": [
+            "japanese yen"
+          ]
+        },
+        {
+          "clue": "The currency of Mexico",
+          "answer": "Peso",
+          "accept": [
+            "mexican peso"
+          ]
+        },
+        {
+          "clue": "The currency of India",
+          "answer": "Rupee",
+          "accept": [
+            "indian rupee",
+            "rupees"
+          ]
+        },
+        {
+          "clue": "Switzerland's currency",
+          "answer": "Swiss franc",
+          "accept": [
+            "franc"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "COLORS",
+      "clues": [
+        {
+          "clue": "Mix blue and yellow paint to get this color",
+          "answer": "Green"
+        },
+        {
+          "clue": "Along with red and green, it's one of the three primary colors of light",
+          "answer": "Blue"
+        },
+        {
+          "clue": "In ancient Rome, dye made from sea snails made this the color of royalty",
+          "answer": "Purple",
+          "accept": [
+            "tyrian purple"
+          ]
+        },
+        {
+          "clue": "Isaac Newton divided the rainbow into this many named colors",
+          "answer": "7",
+          "accept": [
+            "seven"
+          ]
+        },
+        {
+          "clue": "This purplish-red dye was named for an 1859 battle in northern Italy",
+          "answer": "Magenta"
+        }
+      ]
+    },
+    {
+      "name": "THE OLYMPICS",
+      "clues": [
+        {
+          "clue": "A relay carries a flame in this hand-held object to the host city",
+          "answer": "Torch",
+          "accept": [
+            "olympic torch"
+          ]
+        },
+        {
+          "clue": "This Jamaican sprinter set the 100-meter world record of 9.58 seconds in 2009",
+          "answer": "Usain Bolt",
+          "accept": [
+            "bolt"
+          ]
+        },
+        {
+          "clue": "This American swimmer won a record 23 Olympic gold medals",
+          "answer": "Michael Phelps",
+          "accept": [
+            "phelps"
+          ]
+        },
+        {
+          "clue": "This city hosted the Summer Games in 1964 and again in 2021",
+          "answer": "Tokyo"
+        },
+        {
+          "clue": "The Olympic motto \"Citius, Altius, Fortius\" is in this language",
+          "answer": "Latin"
+        }
+      ]
+    },
+    {
+      "name": "FLAGS",
+      "clues": [
+        {
+          "clue": "This country's flag is a red circle on a white field",
+          "answer": "Japan"
+        },
+        {
+          "clue": "A red maple leaf is the centerpiece of this country's flag",
+          "answer": "Canada"
+        },
+        {
+          "clue": "The Union Jack combines the crosses of England, Scotland and this island",
+          "answer": "Ireland",
+          "accept": [
+            "northern ireland"
+          ]
+        },
+        {
+          "clue": "A green cedar tree sits at the center of this Middle Eastern country's flag",
+          "answer": "Lebanon"
+        },
+        {
+          "clue": "This Himalayan country has the only non-rectangular national flag",
+          "answer": "Nepal"
+        }
+      ]
+    },
+    {
+      "name": "BIRDS",
+      "clues": [
+        {
+          "clue": "The national bird of the United States",
+          "answer": "Bald eagle",
+          "accept": [
+            "eagle"
+          ]
+        },
+        {
+          "clue": "The largest living bird, it can't fly but can run about 45 mph",
+          "answer": "Ostrich"
+        },
+        {
+          "clue": "The only birds that can truly fly backwards",
+          "answer": "Hummingbirds",
+          "accept": [
+            "hummingbird"
+          ]
+        },
+        {
+          "clue": "This flightless bird of Mauritius was extinct by the late 1600s",
+          "answer": "Dodo"
+        },
+        {
+          "clue": "The kea, an alpine parrot known for mischief, is native to this country",
+          "answer": "New Zealand"
+        }
+      ]
+    },
+    {
+      "name": "GREAT SCIENTISTS",
+      "clues": [
+        {
+          "clue": "He's famous for the equation E = mc²",
+          "answer": "Albert Einstein",
+          "accept": [
+            "einstein"
+          ]
+        },
+        {
+          "clue": "He formulated the three laws of motion",
+          "answer": "Isaac Newton",
+          "accept": [
+            "newton"
+          ]
+        },
+        {
+          "clue": "In 1610 he reported four moons orbiting Jupiter",
+          "answer": "Galileo Galilei",
+          "accept": [
+            "galileo"
+          ]
+        },
+        {
+          "clue": "The first person to win Nobel Prizes in two different sciences",
+          "answer": "Marie Curie",
+          "accept": [
+            "curie",
+            "madame curie"
+          ]
+        },
+        {
+          "clue": "His 1543 book \"On the Revolutions of the Heavenly Spheres\" put the Sun at the center",
+          "answer": "Nicolaus Copernicus",
+          "accept": [
+            "copernicus"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ANCIENT EGYPT",
+      "clues": [
+        {
+          "clue": "The Egyptian writing system that used pictures and symbols",
+          "answer": "Hieroglyphics",
+          "accept": [
+            "hieroglyphs",
+            "hieroglyph"
+          ]
+        },
+        {
+          "clue": "Howard Carter found this boy king's nearly intact tomb in 1922",
+          "answer": "Tutankhamun",
+          "accept": [
+            "king tut",
+            "tut",
+            "tutankhamen"
+          ]
+        },
+        {
+          "clue": "The last active ruler of Ptolemaic Egypt, she died in 30 B.C.",
+          "answer": "Cleopatra",
+          "accept": [
+            "cleopatra vii"
+          ]
+        },
+        {
+          "clue": "Found in 1799, this inscribed slab helped scholars decode hieroglyphs",
+          "answer": "Rosetta Stone"
+        },
+        {
+          "clue": "This pharaoh, born Amenhotep IV, promoted worship of the sun disk Aten",
+          "answer": "Akhenaten",
+          "accept": [
+            "akhenaton"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FAIRY TALES",
+      "clues": [
+        {
+          "clue": "She left a glass slipper behind at the ball",
+          "answer": "Cinderella"
+        },
+        {
+          "clue": "This girl sampled the porridge of three bears",
+          "answer": "Goldilocks"
+        },
+        {
+          "clue": "A prince climbs this maiden's long hair to reach her in a tower",
+          "answer": "Rapunzel"
+        },
+        {
+          "clue": "This little man spun straw into gold, and his name had to be guessed",
+          "answer": "Rumpelstiltskin"
+        },
+        {
+          "clue": "Jacob and Wilhelm, they published their first collection of tales in 1812",
+          "answer": "Brothers Grimm",
+          "accept": [
+            "grimm",
+            "the grimms"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AMERICAN HISTORY",
+      "clues": [
+        {
+          "clue": "The Declaration of Independence was adopted in this year",
+          "answer": "1776"
+        },
+        {
+          "clue": "This ship carried the Pilgrims to Plymouth in 1620",
+          "answer": "Mayflower"
+        },
+        {
+          "clue": "The name for the first 10 amendments to the U.S. Constitution",
+          "answer": "Bill of Rights"
+        },
+        {
+          "clue": "This 1803 deal with France roughly doubled the size of the United States",
+          "answer": "Louisiana Purchase"
+        },
+        {
+          "clue": "Thomas Jefferson sent these two captains to explore the West in 1804",
+          "answer": "Lewis and Clark",
+          "accept": [
+            "lewis & clark"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "POETRY",
+      "clues": [
+        {
+          "clue": "A Japanese poem of three lines with 5, 7 and 5 syllables",
+          "answer": "Haiku"
+        },
+        {
+          "clue": "Shakespeare wrote 154 of these 14-line poems",
+          "answer": "Sonnets",
+          "accept": [
+            "sonnet"
+          ]
+        },
+        {
+          "clue": "He wrote \"The Raven\"",
+          "answer": "Edgar Allan Poe",
+          "accept": [
+            "poe",
+            "edgar allen poe"
+          ]
+        },
+        {
+          "clue": "He wrote \"The Road Not Taken\"",
+          "answer": "Robert Frost",
+          "accept": [
+            "frost"
+          ]
+        },
+        {
+          "clue": "He wrote \"Leaves of Grass\"",
+          "answer": "Walt Whitman",
+          "accept": [
+            "whitman"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WEATHER",
+      "clues": [
+        {
+          "clue": "Balls of ice that fall from thunderstorms",
+          "answer": "Hail",
+          "accept": [
+            "hailstones"
+          ]
+        },
+        {
+          "clue": "In the western Pacific, a hurricane is called this",
+          "answer": "Typhoon"
+        },
+        {
+          "clue": "This instrument measures atmospheric pressure",
+          "answer": "Barometer"
+        },
+        {
+          "clue": "The towering cloud type that produces thunderstorms",
+          "answer": "Cumulonimbus"
+        },
+        {
+          "clue": "Tornado strength is rated on the Enhanced version of this scale",
+          "answer": "Fujita scale",
+          "accept": [
+            "fujita",
+            "enhanced fujita scale"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FRUITS & VEGGIES",
+      "clues": [
+        {
+          "clue": "Popeye ate this leafy green for super strength",
+          "answer": "Spinach"
+        },
+        {
+          "clue": "Botanically a fruit, it's the main ingredient in ketchup",
+          "answer": "Tomato"
+        },
+        {
+          "clue": "Most dill pickles start out as this vegetable",
+          "answer": "Cucumber"
+        },
+        {
+          "clue": "A blight on this crop caused Ireland's Great Famine in the 1840s",
+          "answer": "Potato"
+        },
+        {
+          "clue": "Also called \"lady's fingers\", this pod vegetable thickens gumbo",
+          "answer": "Okra"
+        }
+      ]
+    },
+    {
+      "name": "RIVERS",
+      "clues": [
+        {
+          "clue": "The largest river in the world by water flow, in South America",
+          "answer": "Amazon",
+          "accept": [
+            "amazon river"
+          ]
+        },
+        {
+          "clue": "This river flows through London",
+          "answer": "Thames",
+          "accept": [
+            "river thames"
+          ]
+        },
+        {
+          "clue": "This river carved the Grand Canyon",
+          "answer": "Colorado River",
+          "accept": [
+            "colorado"
+          ]
+        },
+        {
+          "clue": "Baghdad sits on this river",
+          "answer": "Tigris"
+        },
+        {
+          "clue": "Europe's longest river, it empties into the Caspian Sea",
+          "answer": "Volga"
+        }
+      ]
+    },
+    {
+      "name": "CARTOONS",
+      "clues": [
+        {
+          "clue": "Mickey Mouse's dog",
+          "answer": "Pluto"
+        },
+        {
+          "clue": "Bugs Bunny asks, \"Eh, what's up\" this?",
+          "answer": "Doc"
+        },
+        {
+          "clue": "SpongeBob lives in a pineapple in this underwater town",
+          "answer": "Bikini Bottom"
+        },
+        {
+          "clue": "Fred Flintstone's best friend and next-door neighbor",
+          "answer": "Barney Rubble",
+          "accept": [
+            "barney"
+          ]
+        },
+        {
+          "clue": "Scooby-Doo and the gang ride around in this van",
+          "answer": "Mystery Machine"
+        }
+      ]
+    },
+    {
+      "name": "BOARD GAMES",
+      "clues": [
+        {
+          "clue": "This chess piece moves in an L shape",
+          "answer": "Knight"
+        },
+        {
+          "clue": "In this mystery game you might accuse Colonel Mustard in the library with the candlestick",
+          "answer": "Clue",
+          "accept": [
+            "cluedo"
+          ]
+        },
+        {
+          "clue": "The most expensive property on the classic U.S. Monopoly board",
+          "answer": "Boardwalk"
+        },
+        {
+          "clue": "This chess move shifts the king two squares toward a rook, which jumps over it",
+          "answer": "Castling",
+          "accept": [
+            "castle"
+          ]
+        },
+        {
+          "clue": "Played with black and white stones on a 19-by-19 grid, this game originated in China",
+          "answer": "Go",
+          "accept": [
+            "weiqi",
+            "baduk"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SPACE RACE",
+      "clues": [
+        {
+          "clue": "He was the first person to walk on the Moon",
+          "answer": "Neil Armstrong",
+          "accept": [
+            "armstrong"
+          ]
+        },
+        {
+          "clue": "This space telescope was launched from the shuttle Discovery in 1990",
+          "answer": "Hubble Space Telescope",
+          "accept": [
+            "hubble",
+            "hubble telescope"
+          ]
+        },
+        {
+          "clue": "Launched in 1957, it was the first artificial satellite",
+          "answer": "Sputnik",
+          "accept": [
+            "sputnik 1"
+          ]
+        },
+        {
+          "clue": "In 1961 he became the first human in space",
+          "answer": "Yuri Gagarin",
+          "accept": [
+            "gagarin"
+          ]
+        },
+        {
+          "clue": "This NASA rover landed in Mars's Jezero Crater in 2021",
+          "answer": "Perseverance"
+        }
+      ]
+    },
+    {
+      "name": "WHO WROTE IT?",
+      "clues": [
+        {
+          "clue": "The \"Harry Potter\" series",
+          "answer": "J.K. Rowling",
+          "accept": [
+            "rowling",
+            "jk rowling"
+          ]
+        },
+        {
+          "clue": "\"The Adventures of Tom Sawyer\"",
+          "answer": "Mark Twain",
+          "accept": [
+            "twain",
+            "samuel clemens"
+          ]
+        },
+        {
+          "clue": "\"A Christmas Carol\"",
+          "answer": "Charles Dickens",
+          "accept": [
+            "dickens"
+          ]
+        },
+        {
+          "clue": "\"The Old Man and the Sea\"",
+          "answer": "Ernest Hemingway",
+          "accept": [
+            "hemingway"
+          ]
+        },
+        {
+          "clue": "\"Things Fall Apart\", the 1958 novel about Okonkwo",
+          "answer": "Chinua Achebe",
+          "accept": [
+            "achebe"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LANGUAGES",
+      "clues": [
+        {
+          "clue": "The official language of Brazil",
+          "answer": "Portuguese"
+        },
+        {
+          "clue": "Written in Cyrillic, it's the most widely spoken native language in Europe",
+          "answer": "Russian"
+        },
+        {
+          "clue": "The most widely spoken language in India",
+          "answer": "Hindi"
+        },
+        {
+          "clue": "This East African language's name comes from the Arabic word for \"coasts\"",
+          "answer": "Swahili",
+          "accept": [
+            "kiswahili"
+          ]
+        },
+        {
+          "clue": "Also called Farsi, it's the official language of Iran",
+          "answer": "Persian"
+        }
+      ]
+    },
+    {
+      "name": "INSECTS",
+      "clues": [
+        {
+          "clue": "These insects make honey",
+          "answer": "Bees",
+          "accept": [
+            "bee",
+            "honeybees",
+            "honeybee"
+          ]
+        },
+        {
+          "clue": "A caterpillar forms a chrysalis before becoming one of these",
+          "answer": "Butterfly",
+          "accept": [
+            "butterflies"
+          ]
+        },
+        {
+          "clue": "Also called lightning bugs, these beetles glow",
+          "answer": "Fireflies",
+          "accept": [
+            "firefly"
+          ]
+        },
+        {
+          "clue": "Spiders aren't insects; they belong to this class",
+          "answer": "Arachnids",
+          "accept": [
+            "arachnida",
+            "arachnid"
+          ]
+        },
+        {
+          "clue": "Monarch caterpillars feed only on this plant",
+          "answer": "Milkweed"
+        }
+      ]
+    },
+    {
+      "name": "PHYSICS",
+      "clues": [
+        {
+          "clue": "This negatively charged particle orbits an atom's nucleus",
+          "answer": "Electron"
+        },
+        {
+          "clue": "The loud crack produced when an aircraft exceeds the speed of sound",
+          "answer": "Sonic boom"
+        },
+        {
+          "clue": "The SI unit of power, named for a Scottish inventor",
+          "answer": "Watt"
+        },
+        {
+          "clue": "The SI unit of force, named for an English physicist",
+          "answer": "Newton"
+        },
+        {
+          "clue": "This effect explains why an ambulance siren drops in pitch as it passes",
+          "answer": "Doppler effect",
+          "accept": [
+            "doppler"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ROYALTY",
+      "clues": [
+        {
+          "clue": "Britain's longest-reigning monarch, she died in 2022",
+          "answer": "Elizabeth II",
+          "accept": [
+            "elizabeth",
+            "queen elizabeth",
+            "elizabeth 2",
+            "queen elizabeth ii",
+            "elizabeth the second"
+          ]
+        },
+        {
+          "clue": "This English king married six times",
+          "answer": "Henry VIII",
+          "accept": [
+            "henry 8",
+            "henry the eighth",
+            "henry"
+          ]
+        },
+        {
+          "clue": "This French queen was guillotined in 1793",
+          "answer": "Marie Antoinette"
+        },
+        {
+          "clue": "France's \"Sun King\" built the Palace of Versailles",
+          "answer": "Louis XIV",
+          "accept": [
+            "louis 14",
+            "louis the fourteenth"
+          ]
+        },
+        {
+          "clue": "This dynasty ruled Russia from 1613 until 1917",
+          "answer": "Romanov",
+          "accept": [
+            "romanovs",
+            "house of romanov"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MUSICALS",
+      "clues": [
+        {
+          "clue": "In this musical, the hills are alive with music",
+          "answer": "The Sound of Music",
+          "accept": [
+            "sound of music"
+          ]
+        },
+        {
+          "clue": "Lin-Manuel Miranda's hip-hop musical about the first Treasury Secretary",
+          "answer": "Hamilton"
+        },
+        {
+          "clue": "Andrew Lloyd Webber musical about a masked figure haunting the Paris Opera",
+          "answer": "The Phantom of the Opera",
+          "accept": [
+            "phantom of the opera",
+            "phantom"
+          ]
+        },
+        {
+          "clue": "This musical about the Jets and the Sharks updates \"Romeo and Juliet\"",
+          "answer": "West Side Story"
+        },
+        {
+          "clue": "This musical, based on a Victor Hugo novel, follows Jean Valjean",
+          "answer": "Les Misérables",
+          "accept": [
+            "les miserables",
+            "les mis"
+          ]
+        }
+      ]
+    }
+  ],
+  "finals": [
+    {
+      "category": "AMERICAN DOCUMENTS",
+      "clue": "Thomas Jefferson wrote the first draft of this document in about 17 days in June 1776",
+      "answer": "The Declaration of Independence",
+      "accept": [
+        "declaration of independence"
+      ]
+    },
+    {
+      "category": "WORLD GEOGRAPHY",
+      "clue": "It's the only country with coastline on both the Atlantic and Indian Oceans",
+      "answer": "South Africa"
+    },
+    {
+      "category": "THE ELEMENTS",
+      "clue": "Named for the Greek word for \"sun\", this element was detected in the solar spectrum before it was found on Earth",
+      "answer": "Helium"
+    },
+    {
+      "category": "NOVEL SUBTITLES",
+      "clue": "This author's 1818 novel was subtitled \"The Modern Prometheus\"",
+      "answer": "Mary Shelley",
+      "accept": [
+        "shelley",
+        "mary wollstonecraft shelley"
+      ]
+    },
+    {
+      "category": "20TH CENTURY ART",
+      "clue": "Picasso painted this 1937 mural in response to the bombing of a Basque town",
+      "answer": "Guernica"
+    },
+    {
+      "category": "WORD ORIGINS",
+      "clue": "The word \"robot\" entered English through this Czech writer's 1920 play \"R.U.R.\"",
+      "answer": "Karel Čapek",
+      "accept": [
+        "capek",
+        "karel capek"
+      ]
+    },
+    {
+      "category": "SPACE EXPLORATION",
+      "clue": "On July 20, 1969, he became the second person to walk on the Moon",
+      "answer": "Buzz Aldrin",
+      "accept": [
+        "aldrin",
+        "edwin aldrin"
+      ]
+    },
+    {
+      "category": "COMPOSERS",
+      "clue": "He was profoundly deaf by the time his Ninth Symphony premiered in Vienna in 1824",
+      "answer": "Ludwig van Beethoven",
+      "accept": [
+        "beethoven"
+      ]
+    },
+    {
+      "category": "ANCIENT CITIES",
+      "clue": "Buried by Mount Vesuvius in 79 A.D., this city saw formal excavations begin in 1748",
+      "answer": "Pompeii"
+    },
+    {
+      "category": "THE WORLD CUP",
+      "clue": "It's the only nation to have played in every men's FIFA World Cup tournament",
+      "answer": "Brazil"
+    },
+    {
+      "category": "WORLD LEADERS",
+      "clue": "Released in 1990 after 27 years in prison, he became his country's president four years later",
+      "answer": "Nelson Mandela",
+      "accept": [
+        "mandela"
+      ]
+    },
+    {
+      "category": "INVENTORS",
+      "clue": "He held more than 1,000 U.S. patents, including one for the phonograph",
+      "answer": "Thomas Edison",
+      "accept": [
+        "edison"
+      ]
+    },
+    {
+      "category": "LANDMARKS",
+      "clue": "Built for the 1889 World's Fair, it was originally meant to stand for only 20 years",
+      "answer": "Eiffel Tower"
+    },
+    {
+      "category": "HISTORIC SHIPS",
+      "clue": "Charles Darwin sailed around the world aboard this ship from 1831 to 1836",
+      "answer": "HMS Beagle",
+      "accept": [
+        "beagle"
+      ]
+    },
+    {
+      "category": "MATHEMATICIANS",
+      "clue": "The theorem a² + b² = c² is named for this ancient Greek",
+      "answer": "Pythagoras"
+    },
+    {
+      "category": "U.S. RIVERS",
+      "clue": "It's the longest tributary of the Mississippi River",
+      "answer": "Missouri River",
+      "accept": [
+        "missouri"
+      ]
+    },
+    {
+      "category": "OPERA",
+      "clue": "Giuseppe Verdi's opera set in ancient Egypt premiered in Cairo in 1871",
+      "answer": "Aida"
+    },
+    {
+      "category": "THE PLANETS",
+      "clue": "A day on this planet lasts longer than its year",
+      "answer": "Venus"
+    },
+    {
+      "category": "FICTIONAL DETECTIVES",
+      "clue": "This Scottish-born doctor created Sherlock Holmes",
+      "answer": "Arthur Conan Doyle",
+      "accept": [
+        "conan doyle",
+        "doyle",
+        "sir arthur conan doyle"
+      ]
+    },
+    {
+      "category": "ANATOMY",
+      "clue": "The longest bone in the human body, it runs from the hip to the knee",
+      "answer": "Femur",
+      "accept": [
+        "thigh bone",
+        "thighbone"
+      ]
+    },
+    {
+      "category": "THE REFORMATION",
+      "clue": "Martin Luther is said to have nailed this many theses to a church door in 1517",
+      "answer": "95",
+      "accept": [
+        "ninety five",
+        "ninety-five"
+      ]
+    },
+    {
+      "category": "EXPLORERS",
+      "clue": "His expedition finished the first circumnavigation of the globe in 1522, but he was killed in the Philippines in 1521",
+      "answer": "Ferdinand Magellan",
+      "accept": [
+        "magellan"
+      ]
+    },
+    {
+      "category": "ISLANDS",
+      "clue": "Not counting Australia, it's the world's largest island",
+      "answer": "Greenland"
+    },
+    {
+      "category": "THE ELEMENTS",
+      "clue": "Element number 6, it forms the backbone of all organic chemistry",
+      "answer": "Carbon"
+    },
+    {
+      "category": "CONTINENTS",
+      "clue": "It's the only continent with no permanent human population",
+      "answer": "Antarctica"
+    }
+  ]
+}

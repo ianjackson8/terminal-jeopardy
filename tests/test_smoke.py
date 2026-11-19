@@ -7,9 +7,9 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from trivia import app as app_mod
-from trivia import screen as screen_mod
-from trivia.ai import DIFFICULTIES
+from jeopardy import app as app_mod
+from jeopardy import screen as screen_mod
+from jeopardy.ai import DIFFICULTIES
 
 
 class FakeClock:

@@ -15,17 +15,17 @@ from .screen import (
     LEFT, RIGHT, UP, VALUE, Screen, money,
 )
 
-TITLE = "TERMINAL TRIVIA"
+TITLE = "TERMINAL JEOPARDY"
 ANSWER_TIME = 10.0
 DD_TIME = 15.0
 FINAL_TIME = 30.0
 PRACTICE_TIME = 15.0
-STATS_FILE = Path.home() / ".terminal-trivia" / "stats.json"
+STATS_FILE = Path.home() / ".terminal-jeopardy" / "stats.json"
 
 LOGO = [
-    "╔╦╗╔═╗╦═╗╔╦╗╦╔╗╔╔═╗╦    ╔╦╗╦═╗╦╦  ╦╦╔═╗",
-    " ║ ║╣ ╠╦╝║║║║║║║╠═╣║     ║ ╠╦╝║╚╗╔╝║╠═╣",
-    " ╩ ╚═╝╩╚═╩ ╩╩╝╚╝╩ ╩╩═╝   ╩ ╩╚═╩ ╚╝ ╩╩ ╩",
+    "╔╦╗╔═╗╦═╗╔╦╗╦╔╗╔╔═╗╦      ╦╔═╗╔═╗╔═╗╔═╗╦═╗╔╦╗╦ ╦",
+    " ║ ║╣ ╠╦╝║║║║║║║╠═╣║      ║║╣ ║ ║╠═╝╠═╣╠╦╝ ║║╚╦╝",
+    " ╩ ╚═╝╩╚═╩ ╩╩╝╚╝╩ ╩╩═╝   ╚╝╚═╝╚═╝╩  ╩ ╩╩╚══╩╝ ╩",
 ]
 
 

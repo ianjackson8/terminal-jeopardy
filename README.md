@@ -1,4 +1,4 @@
-# Terminal Trivia
+# Terminal Jeopardy
 
 A quiz-show game for the terminal. Play a full game against two AI contestants, or drill in practice mode.
 It's pure Python standard library (`curses`), so there's nothing to install.
@@ -6,8 +6,8 @@ It's pure Python standard library (`curses`), so there's nothing to install.
 ## Run
 
 ```sh
-python3 -m trivia
-# or install the `trivia` command:
+python3 -m jeopardy
+# or install the `jeopardy` command:
 uv tool install .      # or: pip install .
 ```
 
@@ -35,11 +35,11 @@ Each AI also gets random strong and weak categories, so opponents play different
 - `O` on a result screen overrides a wrong judgement.
 - Esc: quit to the menu.
 
-Stats are saved to `~/.terminal-trivia/stats.json`.
+Stats are saved to `~/.terminal-jeopardy/stats.json`.
 
 ## Adding clues
 
-Edit `trivia/data/clues.json`. Each category needs exactly 5 clues, ordered easiest to hardest. Use `accept` to list other answers that should count as correct.
+Edit `jeopardy/data/clues.json`. Each category needs exactly 5 clues, ordered easiest to hardest. Use `accept` to list other answers that should count as correct.
 
 ## Tests
 

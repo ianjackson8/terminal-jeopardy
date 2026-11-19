@@ -1,9 +1,9 @@
 import random
 import unittest
 
-from trivia.ai import DIFFICULTIES, EASY, HARD, AIPlayer, make_opponents
-from trivia.clues import build_game, load_bank, make_category
-from trivia.matching import is_correct, normalize
+from jeopardy.ai import DIFFICULTIES, EASY, HARD, AIPlayer, make_opponents
+from jeopardy.clues import build_game, load_bank, make_category
+from jeopardy.matching import is_correct, normalize
 
 
 class MatchingTests(unittest.TestCase):
