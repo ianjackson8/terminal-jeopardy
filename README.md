@@ -35,6 +35,7 @@
 - 📚 **Practice mode:** random mix, single category, weak spots or Final Round clues, with an optional timer
 - 🧠 **Forgiving answer checks:** no "What is…" needed, small typos are allowed, and you can override a wrong ruling
 - 📈 **Saved stats:** win/loss record per difficulty, personal bests and lifetime practice accuracy
+- 🔊 **Sound effects:** original synthesized chimes, buzzers and fanfares, with a toggle in the main menu
 - 📦 **Zero dependencies:** only the Python standard library (`curses`)
 
 ## 🚀 Quick start

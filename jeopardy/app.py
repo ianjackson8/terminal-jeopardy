@@ -1,6 +1,7 @@
 """Game flow: menus, a full three-round game vs two AIs, and practice mode."""
 from __future__ import annotations
 
+import math
 import random
 import textwrap
 import time
@@ -9,7 +10,10 @@ from .ai import DIFFICULTIES, AIPlayer, Difficulty, Player, make_opponents
 from .clues import Board, Category, Clue, FinalClue, build_game, load_bank, make_category
 from .decoys import DecoyPool
 from .matching import is_correct
-from .stats import GameLog, career, category_table, load_stats, record_game, save_stats
+from .sound import Sound
+from .stats import (
+    GameLog, career, category_table, load_settings, load_stats, record_game, save_settings, save_stats,
+)
 from .screen import (
     ACCENT, BAD, BAD_B, BOARD, CURSOR, DIM_B, DOWN, ENTER, ESC, GOLD, GOOD, GOOD_B,
     LEFT, RIGHT, UP, VALUE, Screen, money,
@@ -36,6 +40,8 @@ class App:
     def __init__(self, scr):
         self.s = Screen(scr)
         self.stats = load_stats()
+        self.settings = load_settings()
+        self.sfx = Sound(enabled=self.settings.get("sound", True))
         self.rng = random.Random()
         self._scroll_max = 0
 
@@ -66,19 +72,51 @@ class App:
         ]
         return ("Record (W-L)  " + "   ".join(parts)) if parts else ""
 
+    def sound_option(self) -> tuple[str, str]:
+        if not self.sfx.available:
+            return ("Sound: unavailable", "No audio player found (afplay, paplay, pw-play or aplay).")
+        state = "ON" if self.sfx.enabled else "OFF"
+        return (f"Sound: {state}", "Toggle sound effects. Your choice is remembered.")
+
+    def toggle_sound(self) -> None:
+        if not self.sfx.available:
+            return
+        self.sfx.enabled = not self.sfx.enabled
+        self.settings["sound"] = self.sfx.enabled
+        save_settings(self.settings)
+        self.sfx.play("select")
+
+    def ticking(self, limit: float, draw):
+        """Wrap a text_input draw callback so the clock ticks over the last 5 seconds."""
+        last = [None]
+
+        def wrapped(buf, frac):
+            if frac is not None:
+                remaining = math.ceil(frac * limit)
+                if remaining <= 5 and remaining != last[0]:
+                    self.sfx.play("tick")
+                last[0] = remaining
+            draw(buf, frac)
+        return wrapped
+
+    def judge_sound(self, correct: bool, timed_out: bool = False) -> None:
+        self.sfx.play("correct" if correct else ("timeout" if timed_out else "wrong"))
+
     def run(self) -> None:
-        options = [
-            ("Play a full game", "Three rounds against two AI contestants: Round 1, the Double Round, and the Final Round."),
-            ("Practice", "Untimed (or timed) drills with instant feedback. Pick a category or mix it up."),
-            ("Stats", "Win streaks, winnings, accuracy, categories and game history."),
-            ("How to play", "Rules, controls and answer tips."),
-            ("Quit", ""),
-        ]
         sel = 0
         while True:
+            options = [
+                ("Play a full game", "Three rounds against two AI contestants: Round 1, the Double Round, and the Final Round."),
+                ("Practice", "Untimed (or timed) drills with instant feedback. Pick a category or mix it up."),
+                ("Stats", "Win streaks, winnings, accuracy, categories and game history."),
+                ("How to play", "Rules, controls and answer tips."),
+                self.sound_option(),
+                ("Quit", ""),
+            ]
             choice = self.s.menu("MAIN MENU", options, sel, header=self.header,
                                  footer="↑/↓ move · Enter select · q quit")
-            if choice is None or choice == 4:
+            if choice is None or choice == 5:
+                self.sfx.stop()
                 return
             sel = choice
             if choice == 0:
@@ -94,6 +132,8 @@ class App:
                 self.stats_page()
             elif choice == 3:
                 self.how_to_play()
+            elif choice == 4:
+                self.toggle_sound()
 
     def pick_difficulty(self) -> Difficulty | None:
         opts = [(d.label, d.description) for d in DIFFICULTIES]
@@ -265,6 +305,7 @@ class App:
             self.draw_scores(h - 3, self.players, control, on_blue=True)
             self.s.center(h - 1, "Press any key", self.s.a(BOARD))
 
+        self.sfx.play("round")
         self.s.wait_key(draw)
 
     def play_round(self, board: Board, control: Player) -> Player:
@@ -273,9 +314,11 @@ class App:
             if control.is_human:
                 col, row = self.human_pick(board, control, cursor)
                 cursor = (col, row)
+                self.sfx.play("select")
             else:
                 col, row = control.pick_clue(board)
                 cat = board.categories[col]
+                self.sfx.play("select")
                 self.s.hold(1.6, lambda: self.draw_board(
                     board, self.players, control, (col, row),
                     f"{control.name}: \"{cat.name.title()} for {money(board.values[row])}\""))
@@ -337,11 +380,14 @@ class App:
             if k == " " and human_ok:
                 if now < open_at:
                     lock_until = now + 0.5
+                    self.sfx.play("early")
                 elif now >= lock_until:
+                    self.sfx.play("buzz")
                     if first_ai and first_ai[0] < now:
                         return first_ai[1]
                     return human
             if first_ai and first_ai[0] <= now:
+                self.sfx.play("buzz")
                 return first_ai[1]
             if now >= close_at:
                 return None
@@ -380,13 +426,14 @@ class App:
                 break
             attempted.add(winner)
             if winner.is_human:
-                resp, _ = self.s.text_input(
+                resp, timed_out = self.s.text_input(self.ticking(ANSWER_TIME,
                     lambda buf, frac: self.draw_clue(
                         header, clue.text, lines + [("You buzzed in!", VALUE), (f"Your response: {buf}▌", BOARD)],
-                        frac, self.players),
+                        frac, self.players)),
                     limit=ANSWER_TIME)
                 resp = (resp or "").strip()
                 correct = is_correct(resp, clue.all_answers)
+                self.judge_sound(correct, timed_out and not resp)
             else:
                 self.s.hold(0.8, lambda: self.draw_clue(
                     header, clue.text, lines + [(f"{winner.name} buzzes in!", VALUE)], None, self.players),
@@ -397,6 +444,7 @@ class App:
                 self.s.hold(1.4, lambda: self.draw_clue(
                     header, clue.text, lines + [(f"{winner.name}: \"{resp}\"", BOARD)], None, self.players),
                     skippable=False)
+                self.judge_sound(correct)
             delta = clue.value if correct else -clue.value
             winner.score += delta
             events.append([winner, resp, correct, delta])
@@ -404,6 +452,8 @@ class App:
                 control = winner
                 break
             open_delay, window = 0.6, 4.0
+        if not events:
+            self.sfx.play("timeout")
         control = self.show_result(header, clue.text, clue.answer, events, control)
         for p, _, correct, _ in events:
             if p is human:
@@ -442,6 +492,7 @@ class App:
                 e[2], e[3] = True, -e[3]
                 control = human
                 overridden = True
+                self.sfx.play("correct")
             elif k in ENTER or k == " ":
                 return control
             elif k == ESC:
@@ -451,6 +502,7 @@ class App:
     # ---- Daily Double --------------------------------------------------------------
     def daily_double(self, clue: Clue, board: Board, cat: Category, control: Player) -> Player:
         s = self.s
+        self.sfx.play("dd")
         for i in range(8):
             def flash(i=i):
                 h, _ = s.size
@@ -476,11 +528,12 @@ class App:
                 header, f"Category: {clue.category}",
                 [(f"{control.name} wagers {money(wager)}", VALUE)], None, self.players, control))
         if control.is_human:
-            resp, _ = s.text_input(lambda b, f: self.draw_clue(
+            resp, timed_out = s.text_input(self.ticking(DD_TIME, lambda b, f: self.draw_clue(
                 header, clue.text, [(f"Wager {money(wager)}", DIM_B), (f"Your response: {b}▌", BOARD)],
-                f, self.players, control), limit=DD_TIME)
+                f, self.players, control)), limit=DD_TIME)
             resp = (resp or "").strip()
             correct = is_correct(resp, clue.all_answers)
+            self.judge_sound(correct, timed_out and not resp)
         else:
             correct = control.answer_correct(clue.category, clue.tier)
             resp = clue.answer if correct else self.decoys.pick(clue.text, clue.all_answers, category=clue.category)
@@ -490,6 +543,7 @@ class App:
             s.hold(1.4, lambda: self.draw_clue(
                 header, clue.text, [(f"{control.name}: \"{resp}\"", BOARD)], None, self.players, control),
                 skippable=False)
+            self.judge_sound(correct)
         delta = wager if correct else -wager
         control.score += delta
         picker = control
@@ -516,6 +570,7 @@ class App:
             s.wait_key(lambda: cat_screen([("Nobody finished in the black - no Final Round!", VALUE),
                                            ("Press any key", DIM_B)]))
             return
+        self.sfx.play("final")
         note = [] if human in eligible else [("You finished at $0 or below and sit this one out.", BAD_B)]
         s.wait_key(lambda: cat_screen(note + [("Players with positive scores will wager.", BOARD),
                                               ("Press any key", DIM_B)]))
@@ -536,9 +591,9 @@ class App:
 
         responses: dict[Player, str] = {}
         if human in eligible:
-            resp, _ = s.text_input(lambda b, f: self.draw_clue(
+            resp, _ = s.text_input(self.ticking(FINAL_TIME, lambda b, f: self.draw_clue(
                 f"FINAL ROUND  ·  {final.category}", final.text,
-                [(f"Your response: {b}▌", BOARD)], f, self.players), limit=FINAL_TIME)
+                [(f"Your response: {b}▌", BOARD)], f, self.players)), limit=FINAL_TIME)
             responses[human] = (resp or "").strip()
         else:
             s.hold(12, lambda: self.draw_clue(
@@ -570,6 +625,7 @@ class App:
                 delta = wagers[p] if ok else -wagers[p]
                 verdict = ("CORRECT" if ok else "INCORRECT") + f"  ·  wagered {money(wagers[p])}"
                 p.score += delta
+                self.judge_sound(ok)
                 can_override = p.is_human and not ok
                 tail = "Enter continue" + ("  ·  O override (I was right)" if can_override else "")
                 k = s.wait_key(lambda: self.draw_clue(
@@ -601,6 +657,7 @@ class App:
         else:
             streak_line = f"Longest win streak: {c['best_streak']} · {money(c['best_streak_winnings'])}"
 
+        self.sfx.play("win" if won else "lose")
         if top <= 0:
             headline = "Nobody wins tonight!"
         elif won and len(winners) > 1:
@@ -858,15 +915,18 @@ class App:
             label = money(clue.value) if clue.value else "FINAL"
             header = f"PRACTICE  ·  {clue.category}  ·  {label}"
             status = f"{title}  ·  Clue {i + 1}/{len(clues)}  ·  Score {correct_n}/{answered}  ·  Streak {streak}"
-            resp, _ = s.text_input(lambda b, f: self.draw_clue(
+            draw = lambda b, f: self.draw_clue(  # noqa: E731
                 header, clue.text,
                 [(status, DIM_B), ("", 0), (f"Your response: {b}▌", BOARD),
-                 ("Enter submit (blank = pass)  ·  Esc finish", DIM_B)], f),
-                limit=PRACTICE_TIME if timed else None)
+                 ("Enter submit (blank = pass)  ·  Esc finish", DIM_B)], f)
+            resp, timed_out = s.text_input(self.ticking(PRACTICE_TIME, draw) if timed else draw,
+                                           limit=PRACTICE_TIME if timed else None)
             if resp is None:
                 break
             resp = resp.strip()
             ok = bool(resp) and is_correct(resp, clue.all_answers)
+            if resp or timed_out:
+                self.judge_sound(ok, timed_out and not resp)
             overridden = False
             while True:
                 if ok:
@@ -882,6 +942,7 @@ class App:
                     [verdict, (f"Correct response: {clue.answer}", VALUE), ("", 0), (hint, DIM_B)]))
                 if k in ("o", "O") and can_override:
                     ok, overridden = True, True
+                    self.sfx.play("correct")
                     continue
                 if k in ENTER or k == " " or k == ESC:
                     break

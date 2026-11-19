@@ -145,3 +145,15 @@ def category_table(stats: dict) -> list[tuple[str, int, int, int, int]]:
         rows.append((cat, gc, gn, pc, pn))
     rows.sort(key=lambda r: (-(r[1] + r[3]) / max(1, r[2] + r[4]), -(r[2] + r[4]), r[0]))
     return rows
+
+
+# ---- settings (kept apart from stats so resetting stats keeps your preferences) ----
+SETTINGS_FILE = Path.home() / ".terminal-jeopardy" / "settings.json"
+
+
+def load_settings() -> dict:
+    return load_stats(SETTINGS_FILE)
+
+
+def save_settings(settings: dict) -> None:
+    save_stats(settings, SETTINGS_FILE)

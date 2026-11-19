@@ -9,6 +9,7 @@ from unittest import mock
 
 from jeopardy import app as app_mod
 from jeopardy import screen as screen_mod
+from jeopardy import sound as sound_mod
 from jeopardy import stats as stats_mod
 from jeopardy.ai import DIFFICULTIES
 
@@ -58,6 +59,8 @@ def run_with(fn, keys, h=24, w=80):
             mock.patch.object(app_mod, "time", fake_time), \
             mock.patch.object(screen_mod, "time", fake_time), \
             mock.patch.object(stats_mod, "STATS_FILE", Path(tmp) / "stats.json"), \
+            mock.patch.object(stats_mod, "SETTINGS_FILE", Path(tmp) / "settings.json"), \
+            mock.patch.object(sound_mod, "find_player", lambda: None), \
             mock.patch.object(screen_mod.curses, "curs_set", lambda *a: None), \
             mock.patch.object(screen_mod.curses, "has_colors", lambda: False), \
             mock.patch.object(screen_mod.curses, "flushinp", lambda: None):
