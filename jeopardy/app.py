@@ -1,15 +1,14 @@
 """Game flow: menus, a full three-round game vs two AIs, and practice mode."""
 from __future__ import annotations
 
-import json
 import random
 import textwrap
 import time
-from pathlib import Path
 
 from .ai import DIFFICULTIES, AIPlayer, Difficulty, Player, make_opponents
 from .clues import Board, Category, Clue, FinalClue, build_game, load_bank, make_category
 from .matching import is_correct
+from .stats import GameLog, career, category_table, load_stats, record_game, save_stats
 from .screen import (
     ACCENT, BAD, BAD_B, BOARD, CURSOR, DIM_B, DOWN, ENTER, ESC, GOLD, GOOD, GOOD_B,
     LEFT, RIGHT, UP, VALUE, Screen, money,
@@ -20,7 +19,6 @@ ANSWER_TIME = 10.0
 DD_TIME = 15.0
 FINAL_TIME = 30.0
 PRACTICE_TIME = 15.0
-STATS_FILE = Path.home() / ".terminal-jeopardy" / "stats.json"
 
 LOGO = [
     "╔╦╗╔═╗╦═╗╔╦╗╦╔╗╔╔═╗╦      ╦╔═╗╔═╗╔═╗╔═╗╦═╗╔╦╗╦ ╦",
@@ -33,27 +31,12 @@ class QuitGame(Exception):
     pass
 
 
-# ---- persistent stats ---------------------------------------------------------
-def load_stats() -> dict:
-    try:
-        return json.loads(STATS_FILE.read_text())
-    except (OSError, ValueError):
-        return {}
-
-
-def save_stats(stats: dict) -> None:
-    try:
-        STATS_FILE.parent.mkdir(parents=True, exist_ok=True)
-        STATS_FILE.write_text(json.dumps(stats, indent=2))
-    except OSError:
-        pass
-
-
 class App:
     def __init__(self, scr):
         self.s = Screen(scr)
         self.stats = load_stats()
         self.rng = random.Random()
+        self._scroll_max = 0
 
     # ======================================================================
     # Menus
@@ -86,6 +69,7 @@ class App:
         options = [
             ("Play a full game", "Three rounds against two AI contestants: Round 1, the Double Round, and the Final Round."),
             ("Practice", "Untimed (or timed) drills with instant feedback. Pick a category or mix it up."),
+            ("Stats", "Win streaks, winnings, accuracy, categories and game history."),
             ("How to play", "Rules, controls and answer tips."),
             ("Quit", ""),
         ]
@@ -93,7 +77,7 @@ class App:
         while True:
             choice = self.s.menu("MAIN MENU", options, sel, header=self.header,
                                  footer="↑/↓ move · Enter select · q quit")
-            if choice is None or choice == 3:
+            if choice is None or choice == 4:
                 return
             sel = choice
             if choice == 0:
@@ -106,6 +90,8 @@ class App:
             elif choice == 1:
                 self.practice_menu()
             elif choice == 2:
+                self.stats_page()
+            elif choice == 3:
                 self.how_to_play()
 
     def pick_difficulty(self) -> Difficulty | None:
@@ -233,6 +219,7 @@ class App:
         human = Player("You", is_human=True)
         players: list[Player] = [human, *make_opponents(diff, self.rng)]
         self.players = players
+        self.log = GameLog()
         control: Player = human
 
         self.intro(diff)
@@ -329,16 +316,7 @@ class App:
                     raise QuitGame
 
     def confirm_quit(self) -> bool:
-        def draw():
-            h, _ = self.s.size
-            self.s.fill()
-            self.s.center(h // 2, "Quit this game and return to the menu? (y/n)", self.s.a(GOLD, True))
-        while True:
-            k = self.s.wait_key(draw)
-            if k in ("y", "Y"):
-                return True
-            if k in ("n", "N", ESC) or k in ENTER:
-                return False
+        return self.confirm("Quit this game and return to the menu? (y/n)")
 
     # ---- a regular clue ---------------------------------------------------------
     def buzz_phase(self, header: str, clue: Clue, human_ok: bool, ai_times: dict[AIPlayer, float],
@@ -424,7 +402,11 @@ class App:
                 control = winner
                 break
             open_delay, window = 0.6, 4.0
-        return self.show_result(header, clue.text, clue.answer, events, control)
+        control = self.show_result(header, clue.text, clue.answer, events, control)
+        for p, _, correct, _ in events:
+            if p is human:
+                self.log.answer(correct, clue.category)
+        return control
 
     def event_lines(self, events: list[list]) -> list[tuple[str, int]]:
         out = []
@@ -506,7 +488,13 @@ class App:
         delta = wager if correct else -wager
         control.score += delta
         picker = control
-        self.show_result(header, clue.text, clue.answer, [[control, resp, correct, delta]], control)
+        event = [control, resp, correct, delta]
+        self.show_result(header, clue.text, clue.answer, [event], control)
+        if picker.is_human:
+            self.log.answer(event[2], clue.category)
+            self.log.dd_played += 1
+            self.log.dd_correct += int(event[2])
+            self.log.dd_net += event[3]
         return picker
 
     # ---- Final Round ------------------------------------------------------------------
@@ -586,17 +574,25 @@ class App:
                     correct_map[p] = True
                     continue
                 break
+        if human in eligible:
+            self.log.final_played = True
+            self.log.final_correct = correct_map[human]
 
     def game_over(self, diff: Difficulty) -> None:
         human = self.players[0]
         top = max(p.score for p in self.players)
         winners = [p for p in self.players if p.score == top]
         won = human in winners and top > 0
-        g = self.stats.setdefault("games", {}).setdefault(diff.key, {"played": 0, "wins": 0, "best": 0})
-        g["played"] += 1
-        g["wins"] += int(won)
-        g["best"] = max(g["best"], human.score)
+        place = 1 + sum(p.score > human.score for p in self.players)
+        c = record_game(self.stats, diff.key, human.score, won, place, self.log)
+        g = self.stats["games"][diff.key]
         save_stats(self.stats)
+        if won:
+            streak_line = f"Win streak: {c['current_streak']} · {money(c['current_streak_winnings'])} won"
+            if c["current_streak"] == c["best_streak"] and c["current_streak"] > 1:
+                streak_line += "  ·  NEW RECORD!"
+        else:
+            streak_line = f"Longest win streak: {c['best_streak']} · {money(c['best_streak_winnings'])}"
 
         if top <= 0:
             headline = "Nobody wins tonight!"
@@ -615,12 +611,187 @@ class App:
                 pair = VALUE if p.is_human else BOARD
                 self.s.center(h // 2 - 3 + i, f"{p.name:<8} {money(p.score):>10}", self.s.a(pair, True))
             self.s.center(h // 2 + 1, headline, self.s.a(GOOD_B if won else VALUE, True))
-            self.s.center(h // 2 + 3, f"Your best on {diff.label}: {money(g['best'])}   "
+            self.s.center(h // 2 + 3, streak_line, self.s.a(VALUE if won else DIM_B))
+            self.s.center(h // 2 + 4, f"Your best on {diff.label}: {money(g['best'])}   "
                                       f"Record: {g['wins']}-{g['played'] - g['wins']}", self.s.a(DIM_B))
             self.s.center(h - 2, "Press Enter to return to the menu", self.s.a(BOARD))
 
         while self.s.wait_key(draw) not in ENTER:
             pass
+
+    # ======================================================================
+    # Stats page
+    # ======================================================================
+    STAT_TABS = ["Overview", "Categories", "History"]
+
+    def stats_page(self) -> None:
+        tab, scroll = 0, 0
+        while True:
+            k = self.s.wait_key(lambda: self.draw_stats(tab, scroll))
+            if k in LEFT:
+                tab, scroll = (tab - 1) % len(self.STAT_TABS), 0
+            elif k in RIGHT or k == "\t":
+                tab, scroll = (tab + 1) % len(self.STAT_TABS), 0
+            elif k in UP:
+                scroll = max(0, scroll - 1)
+            elif k in DOWN:
+                scroll = min(scroll + 1, self._scroll_max)
+            elif k in ("r", "R"):
+                if self.confirm("Reset ALL stats? This can't be undone. (y/n)"):
+                    self.stats = {}
+                    save_stats(self.stats)
+            elif k in ENTER or k in (ESC, "q"):
+                return
+
+    def confirm(self, question: str) -> bool:
+        def draw():
+            h, _ = self.s.size
+            self.s.fill()
+            self.s.center(h // 2, question, self.s.a(GOLD, True))
+        while True:
+            k = self.s.wait_key(draw)
+            if k in ("y", "Y"):
+                return True
+            if k in ("n", "N", ESC) or k in ENTER:
+                return False
+
+    def draw_stats(self, tab: int, scroll: int) -> None:
+        s = self.s
+        h, w = s.size
+        s.fill()
+        s.center(0, "YOUR STATS", s.a(GOLD, True))
+        labels = [f" {t} " for t in self.STAT_TABS]
+        x = (w - sum(len(l) for l in labels) - 2 * (len(labels) - 1)) // 2
+        for i, label in enumerate(labels):
+            s.put(1, x, label, s.a(CURSOR, True) if i == tab else s.a(ACCENT))
+            x += len(label) + 2
+        c = career(self.stats)
+        self._scroll_max = 0
+        if tab == 0:
+            self.draw_stats_overview(c)
+        elif tab == 1:
+            self.draw_stats_categories(scroll)
+        else:
+            self.draw_stats_history(scroll)
+        s.center(h - 1, "←/→ switch tab · ↑/↓ scroll · R reset · Esc back", s.a(ACCENT))
+
+    @staticmethod
+    def _pct(n: int, d: int) -> str:
+        return f"{100 * n / d:.0f}%" if d else "-"
+
+    def draw_stats_overview(self, c: dict) -> None:
+        s = self.s
+        h, w = s.size
+        colw = 32
+        lx = max(0, (w - 2 * colw - 6) // 2)
+        rx = lx + colw + 6
+
+        def section(x, y, title):
+            s.put(y, x, title, s.a(GOLD, True))
+
+        def row(x, y, label, value, pair=0, bold=False):
+            s.put(y, x, label, s.a())
+            s.put(y, x + colw - len(value), value, s.a(pair, bold))
+
+        def signed(n):
+            return ("+" if n > 0 else "") + money(n)
+
+        played = c["played"]
+        avg = c["total_score"] // played if played else 0
+        hi = money(c["highest_score"]) if c["highest_score"] is not None else "-"
+        lo = money(c["lowest_score"]) if c["lowest_score"] is not None else "-"
+
+        y = 3
+        section(lx, y, "CHAMPION'S RECORD")
+        row(lx, y + 1, "Longest win streak", f"{c['best_streak']} game{'s' * (c['best_streak'] != 1)}", GOLD, True)
+        row(lx, y + 2, "  won during it", money(c["best_streak_winnings"]), GOLD, True)
+        row(lx, y + 3, "Current win streak", f"{c['current_streak']} game{'s' * (c['current_streak'] != 1)}")
+        row(lx, y + 4, "  won during it", money(c["current_streak_winnings"]))
+        section(lx, y + 6, "CAREER")
+        row(lx, y + 7, "Games played", str(played))
+        row(lx, y + 8, "Wins", f"{c['wins']} ({self._pct(c['wins'], played)})")
+        row(lx, y + 9, "Total winnings", money(c["total_winnings"]), GOOD, True)
+        row(lx, y + 10, "Average final score", money(avg), BAD if avg < 0 else 0)
+        row(lx, y + 11, "Highest final score", hi)
+        row(lx, y + 12, "Lowest final score", lo,
+            BAD if c["lowest_score"] is not None and c["lowest_score"] < 0 else 0)
+
+        section(rx, y, "ON THE BUZZER")
+        row(rx, y + 1, "Responses", str(c["responses"]))
+        row(rx, y + 2, "Accuracy", self._pct(c["correct"], c["responses"]))
+        row(rx, y + 3, "Best run in a game", f"{c['best_answer_streak']} in a row")
+        row(rx, y + 4, "Daily Doubles", f"{c['dd_correct']}/{c['dd_played']}")
+        row(rx, y + 5, "  net from wagers", signed(c["dd_net"]),
+            GOOD if c["dd_net"] > 0 else (BAD if c["dd_net"] < 0 else 0))
+        row(rx, y + 6, "Final Round", f"{c['final_correct']}/{c['final_played']}")
+        p = self.stats.get("practice", {})
+        section(rx, y + 8, "PRACTICE")
+        row(rx, y + 9, "Answered", str(p.get("answered", 0)))
+        row(rx, y + 10, "Accuracy", self._pct(p.get("correct", 0), p.get("answered", 0)))
+        row(rx, y + 11, "Best streak", str(p.get("best_streak", 0)))
+
+        games = self.stats.get("games", {})
+        lines = []
+        for d in DIFFICULTIES:
+            g = games.get(d.key)
+            if g:
+                rec = f"{g['wins']}-{g['played'] - g['wins']}"
+                lines.append(f"{d.label:<8}{rec:>7} W-L    best {money(g.get('best', 0)):>9}"
+                             f"    winnings {money(g.get('winnings', 0)):>10}")
+        lines = lines or ["No games yet - go play one!"]
+        if y + 14 + len(lines) < h - 1:
+            section(lx, y + 14, "BY DIFFICULTY")
+            for i, line in enumerate(lines):
+                s.put(y + 15 + i, lx, line, s.a())
+
+    def draw_stats_categories(self, scroll: int) -> None:
+        s = self.s
+        h, w = s.size
+        rows = category_table(self.stats)
+        if not rows:
+            s.center(h // 2, "No category data yet. Play a game or some practice!", s.a(ACCENT))
+            return
+        tw = 58
+        x = max(0, (w - tw) // 2)
+        s.put(3, x, f"{'CATEGORY':<24}{'IN GAMES':>12}{'PRACTICE':>12}{'OVERALL':>10}", s.a(GOLD, True))
+        room = h - 6
+        self._scroll_max = max(0, len(rows) - room)
+        scroll = min(scroll, self._scroll_max)
+        for i, (cat, gc, gn, pc, pn) in enumerate(rows[scroll: scroll + room]):
+            tot_c, tot_n = gc + pc, gn + pn
+            frac = tot_c / tot_n if tot_n else 0
+            pair = GOOD if frac >= 0.8 else (BAD if frac < 0.5 else 0)
+            gtxt = f"{gc}/{gn}" if gn else "-"
+            ptxt = f"{pc}/{pn}" if pn else "-"
+            s.put(4 + i, x, f"{cat[:23]:<24}{gtxt:>12}{ptxt:>12}", s.a())
+            s.put(4 + i, x + 48, f"{self._pct(tot_c, tot_n):>10}", s.a(pair, True))
+        if len(rows) > room:
+            s.center(h - 2, f"{scroll + 1}-{min(len(rows), scroll + room)} of {len(rows)}", s.a(ACCENT))
+
+    def draw_stats_history(self, scroll: int) -> None:
+        s = self.s
+        h, w = s.size
+        hist = self.stats.get("history", [])
+        if not hist:
+            s.center(h // 2, "No games played yet.", s.a(ACCENT))
+            return
+        labels = {d.key: d.label for d in DIFFICULTIES}
+        places = {1: "WIN", 2: "2nd", 3: "3rd"}
+        tw = 61
+        x = max(0, (w - tw) // 2)
+        s.put(3, x, f"{'DATE':<12}{'LEVEL':<9}{'SCORE':>12}{'RESULT':>9}{'ANSWERS':>11}{'ACC':>8}", s.a(GOLD, True))
+        room = h - 6
+        self._scroll_max = max(0, len(hist) - room)
+        scroll = min(scroll, self._scroll_max)
+        for i, g in enumerate(hist[scroll: scroll + room]):
+            result = "WIN" if g["won"] else places.get(g["place"], "-")
+            s.put(4 + i, x, f"{g['date']:<12}{labels.get(g['difficulty'], g['difficulty']):<9}"
+                            f"{money(g['score']):>12}", s.a(BAD if g["score"] < 0 else 0))
+            s.put(4 + i, x + 33, f"{result:>9}", s.a(GOOD if g["won"] else 0, g["won"]))
+            s.put(4 + i, x + 42, f"{g['correct']}/{g['responses']}".rjust(11)
+                                 + f"{self._pct(g['correct'], g['responses']):>8}", s.a())
+        if len(hist) > room:
+            s.center(h - 2, f"{scroll + 1}-{min(len(hist), scroll + room)} of {len(hist)}", s.a(ACCENT))
 
     # ======================================================================
     # Practice mode

@@ -9,6 +9,7 @@ from unittest import mock
 
 from jeopardy import app as app_mod
 from jeopardy import screen as screen_mod
+from jeopardy import stats as stats_mod
 from jeopardy.ai import DIFFICULTIES
 
 
@@ -56,7 +57,7 @@ def run_with(fn, keys, h=24, w=80):
     with tempfile.TemporaryDirectory() as tmp, \
             mock.patch.object(app_mod, "time", fake_time), \
             mock.patch.object(screen_mod, "time", fake_time), \
-            mock.patch.object(app_mod, "STATS_FILE", Path(tmp) / "stats.json"), \
+            mock.patch.object(stats_mod, "STATS_FILE", Path(tmp) / "stats.json"), \
             mock.patch.object(screen_mod.curses, "curs_set", lambda *a: None), \
             mock.patch.object(screen_mod.curses, "has_colors", lambda: False), \
             mock.patch.object(screen_mod.curses, "flushinp", lambda: None):
@@ -88,6 +89,33 @@ class SmokeTests(unittest.TestCase):
         keys = itertools.chain(["P", "a", "r", "i", "s", "\n"], key_stream(99))
         a = run_with(lambda a: a.practice_session(clues, "TEST", timed=True), keys)
         self.assertGreater(a.stats["practice"]["answered"], 0)
+
+    def test_stats_page(self):
+        browse = [None, "l", *["j"] * 60, "k", "l", *["j"] * 60, "l", "h"]
+
+        def play_then_browse(a, extra):
+            a.rng = random.Random(4)
+            for d in DIFFICULTIES * 2:
+                a.play_game(d)
+            a.s.scr.keys = iter(browse + extra + ["\x1b"])
+            a.stats_page()
+
+        for h, w in [(22, 70), (24, 80), (50, 200)]:
+            a = run_with(lambda a: play_then_browse(a, []), key_stream(h), h=h, w=w)
+            c = a.stats["career"]
+            self.assertEqual(c["played"], 6)
+            self.assertEqual(len(a.stats["history"]), 6)
+            self.assertGreaterEqual(c["best_streak"], c["current_streak"])
+
+        # R then y wipes everything.
+        a = run_with(lambda a: play_then_browse(a, ["r", "y"]), key_stream(1))
+        self.assertEqual(a.stats.get("career", {}).get("played", 0), 0)
+        self.assertNotIn("history", a.stats)
+        self.assertNotIn("games", a.stats)
+
+    def test_stats_page_empty(self):
+        a = run_with(lambda a: a.stats_page(), iter([None, "l", "l", "l", "\x1b"]))
+        self.assertEqual(a.stats.get("career", {}).get("played", 0), 0)
 
     def test_big_terminal(self):
         a = run_with(lambda a: a.play_game(DIFFICULTIES[2]), key_stream(7), h=50, w=200)
