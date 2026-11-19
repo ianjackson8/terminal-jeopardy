@@ -155,10 +155,6 @@ class AIPlayer(Player):
             return s                                  # need to double up
         return 0                                      # can't catch up; play for 2nd
 
-    def wrong_guess(self, clue: Clue, pool: list[str]) -> str:
-        options = [a for a in pool if a != clue.answer]
-        return self.rng.choice(options) if options else "I'm not sure"
-
 
 def make_opponents(difficulty: Difficulty, rng: random.Random) -> list[AIPlayer]:
     names = rng.sample(AI_NAMES, 2)

@@ -113,6 +113,45 @@ class SmokeTests(unittest.TestCase):
         self.assertNotIn("history", a.stats)
         self.assertNotIn("games", a.stats)
 
+    def test_override_undoes_later_answers(self):
+        from jeopardy.ai import AIPlayer, Player
+
+        def scenario(a):
+            human = Player("You", is_human=True)
+            ada, hal = AIPlayer("Ada"), AIPlayer("Hal")
+            a.players = [human, ada, hal]
+            # Ada misses (-400), you mistype (-400), Hal gets it (+400). Then you override.
+            ada.score, human.score, hal.score = -400, -400, 400
+            events = [[ada, "Mars", False, -400], [human, "jupitr x", False, -400], [hal, "Saturn", True, 400]]
+            control = a.show_result("TEST", "clue", "Saturn", events, hal)
+            return human, ada, hal, events, control
+
+        out = {}
+        run_with(lambda a: out.update(r=scenario(a)), iter(["o", "\n"]))
+        human, ada, hal, events, control = out["r"]
+        self.assertEqual(human.score, 400)   # you get the reward
+        self.assertEqual(hal.score, 0)       # Hal answered after you: fully undone
+        self.assertEqual(ada.score, -400)    # Ada genuinely missed before you buzzed
+        self.assertIs(control, human)
+        self.assertEqual([e[0] for e in events], [ada, human])
+
+    def test_override_undoes_later_wrong_answer(self):
+        from jeopardy.ai import AIPlayer, Player
+
+        def scenario(a):
+            human = Player("You", is_human=True)
+            ada, hal = AIPlayer("Ada"), AIPlayer("Hal")
+            a.players = [human, ada, hal]
+            human.score, ada.score = -400, -400
+            events = [[human, "x", False, -400], [ada, "Venus", False, -400]]
+            a.show_result("TEST", "clue", "Saturn", events, human)
+            return human, ada
+
+        out = {}
+        run_with(lambda a: out.update(r=scenario(a)), iter(["o", "\n"]))
+        human, ada = out["r"]
+        self.assertEqual((human.score, ada.score), (400, 0))
+
     def test_stats_page_empty(self):
         a = run_with(lambda a: a.stats_page(), iter([None, "l", "l", "l", "\x1b"]))
         self.assertEqual(a.stats.get("career", {}).get("played", 0), 0)

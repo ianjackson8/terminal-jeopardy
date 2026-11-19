@@ -7,6 +7,7 @@ import time
 
 from .ai import DIFFICULTIES, AIPlayer, Difficulty, Player, make_opponents
 from .clues import Board, Category, Clue, FinalClue, build_game, load_bank, make_category
+from .decoys import DecoyPool
 from .matching import is_correct
 from .stats import GameLog, career, category_table, load_stats, record_game, save_stats
 from .screen import (
@@ -216,6 +217,8 @@ class App:
     # ======================================================================
     def play_game(self, diff: Difficulty) -> None:
         r1, r2, final = build_game(self.rng)
+        in_play = [c.all_answers for b in (r1, r2) for cat in b.categories for c in cat.clues]
+        self.decoys = DecoyPool(in_play + [final.all_answers], self.rng)
         human = Player("You", is_human=True)
         players: list[Player] = [human, *make_opponents(diff, self.rng)]
         self.players = players
@@ -361,7 +364,6 @@ class App:
         ais = [p for p in self.players if not p.is_human]
         header = f"{clue.category}  ·  {money(clue.value)}"
         decisions = {ai: ai.decide(clue) for ai in ais}
-        pool = [c.answer for c in cat.clues if c is not clue]
         attempted: set[Player] = set()
         events: list[list] = []
         words = len(clue.text.split())
@@ -391,7 +393,7 @@ class App:
                     skippable=False)
                 correct = decisions[winner][1]
                 given = {e[1] for e in events}
-                resp = clue.answer if correct else winner.wrong_guess(clue, [p for p in pool if p not in given])
+                resp = clue.answer if correct else self.decoys.pick(clue.text, clue.all_answers, given, clue.category)
                 self.s.hold(1.4, lambda: self.draw_clue(
                     header, clue.text, lines + [(f"{winner.name}: \"{resp}\"", BOARD)], None, self.players),
                     skippable=False)
@@ -430,10 +432,14 @@ class App:
             lines.append((hint, DIM_B))
             k = self.s.wait_key(lambda: self.draw_clue(header, text, lines, None, self.players, control))
             if k in ("o", "O") and can_override:
-                for e in events:
-                    if e[0] is human and not e[2]:
-                        human.score += -2 * e[3]
-                        e[2], e[3] = True, -e[3]
+                i = next(i for i, e in enumerate(events) if e[0] is human and not e[2])
+                # The clue should have ended with your response: undo anyone who answered after you.
+                for later in events[i + 1:]:
+                    later[0].score -= later[3]
+                del events[i + 1:]
+                e = events[i]
+                human.score -= 2 * e[3]
+                e[2], e[3] = True, -e[3]
                 control = human
                 overridden = True
             elif k in ENTER or k == " ":
@@ -477,8 +483,7 @@ class App:
             correct = is_correct(resp, clue.all_answers)
         else:
             correct = control.answer_correct(clue.category, clue.tier)
-            pool = [c.answer for c in cat.clues if c is not clue]
-            resp = clue.answer if correct else control.wrong_guess(clue, pool)
+            resp = clue.answer if correct else self.decoys.pick(clue.text, clue.all_answers, category=clue.category)
             s.hold(2.0, lambda: self.draw_clue(
                 header, clue.text, [(f"{control.name} is thinking...", DIM_B)], None, self.players, control),
                 skippable=False)
@@ -540,8 +545,6 @@ class App:
                 f"FINAL ROUND  ·  {final.category}", final.text,
                 [("The others are writing... (Enter to skip)", DIM_B)], None, self.players))
 
-        _, finals = load_bank()
-        pool = [f["answer"] for f in finals if f["answer"] != final.answer]
         correct_map: dict[Player, bool] = {}
         for p in eligible:
             if p.is_human:
@@ -549,7 +552,11 @@ class App:
             else:
                 ok = p.answer_correct(final.category, 5)
                 correct_map[p] = ok
-                responses[p] = final.answer if ok else self.rng.choice(pool + ["(blank)"])
+                if ok:
+                    responses[p] = final.answer
+                else:
+                    given = {r for r in responses.values() if r}
+                    responses[p] = self.decoys.pick(final.text, final.all_answers, given, final.category)
 
         # Reveal from lowest to highest score.
         for p in sorted(eligible, key=lambda p: p.score):
